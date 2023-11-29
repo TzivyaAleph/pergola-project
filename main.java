@@ -1,6 +1,6 @@
 import java.util.Objects;
 import java.util.Scanner;  // Import the Scanner class
-import bean.Beam;
+import Beam.Beam;
 
 class main {
     public static void main(String[] args) {
@@ -12,6 +12,11 @@ class main {
         else
             { Regular();}
     }
+    /**
+     * The function takes care of the regular version.
+     * It gets from the user the length, width and hight of the space, the thickness of a beam, the incline and exit meter.
+     * It prints to the user: amount of space between beams, amount of beams
+     */
     public static void Regular()
     {
         System.out.println("Regular");  // Output user input
@@ -20,37 +25,41 @@ class main {
         float length = myObj.nextFloat();  // Read user input
         System.out.println("Please enter width: (in cm)");
         float width = myObj.nextFloat();  // Read user input
-        System.out.println("Please enter bean thickness: (in cm)");
-        float bean_thickness = myObj.nextFloat();  // Read user input
+        System.out.println("Please enter beam thickness: (in cm)");
+        float beam_thickness = myObj.nextFloat();  // Read user input
         System.out.println("Please enter incline: (in cm)");
         float incline = myObj.nextFloat();  // Read user input
-        System.out.println("Please enter output of bean: (in cm)");
+        System.out.println("Please enter output of beam: (in cm)");
         float output = myObj.nextFloat();  // Read user input
         System.out.println("Please enter the hight: (in cm)");
         float hight = myObj.nextFloat();  // Read user input
-        float space = num_of_space_between_beam(width, bean_thickness);
-        System.out.println("amount of space between beans: " + space);
-        float num_of_beans = num_of_beam(width, bean_thickness);
-        System.out.println("amount of bean: " + num_of_beans);
+        float space = num_of_space_between_beam(width, beam_thickness);
+        System.out.println("amount of space between beams: " + space);
+        float num_of_beans = num_of_beam(width, beam_thickness);
+        System.out.println("amount of beam: " + num_of_beans);
         float length_of_woods = length_of_wood(length, incline, output);
         System.out.println("the lenght of a wood: " + length_of_woods);
-        float hight_of_amuds = hight_of_poll(hight, incline, bean_thickness, length);
+        float hight_of_amuds = hight_of_poll(hight, incline, beam_thickness, length);
         System.out.println("the hight of a amud: " + hight_of_amuds);
-        float num_of_space_between_amuds = num_of_space_between_poll(width, bean_thickness);
+        float num_of_space_between_amuds = num_of_space_between_poll(width, beam_thickness);
         System.out.println("amount of space between amuds: " + num_of_space_between_amuds);
-        float num_of_amuds= num_of_amud(width, bean_thickness);
+        float num_of_amuds= num_of_amud(width, beam_thickness);
         System.out.println("amount of amuds: " + num_of_amuds);
 
     }
+    /**
+     * 
+     */
     public static void Pro()
     {
         System.out.println("Pro");  // Output user input
         Scanner myObj = new Scanner(System.in);  // Create a Scanner object
         Regular();
         String ans1;
+        public List<Beam> beams = new ArrayList<>();
         do {
             Beam beam1 = new Beam();
-            System.out.println("Please enter bean details: (in cm)");
+            System.out.println("Please enter beam details: (in cm)");
             System.out.println("Please enter hight: (in cm)");
             beam1.hight = myObj.nextFloat();
             System.out.println("Please enter thickness: (in cm)");
@@ -68,8 +77,12 @@ class main {
             }
             System.out.println("Would you like to enter another kind of beam? (Y/N)");
             ans1 = myObj.nextLine();
+            beams.add(beam1);
         } while(Objects.equals(ans1, "Y"));
     }
+    /**
+     * 
+     */
     public static float num_of_beam(float width, float thickness)
     {
         int x = (int)width / 75;
@@ -101,26 +114,34 @@ class main {
         }
         return result;
     }
-
+    /**
+     * 
+     */
     public static float length_of_wood(float length, float incline, float output)
     {
         return length+output+(incline/100*length);//????
     }
-    public static float hight_of_poll(float hight, float incline, float bean_thickness, float length)
+    /**
+     * 
+     */
+    public static float hight_of_poll(float hight, float incline, float beam_thicknss, float length)
     {
         return hight-bean_thickness-(incline/100*length);
     }
-    public static float num_of_space_between_poll(float width, float bean_thickness)
+    /**
+     * 
+     */
+    public static float num_of_space_between_poll(float width, float beam_thicknss)
     {
-        if (bean_thickness <= 7)
+        if (beam_thickness <= 7)
         {
             int x = (int) width / 300;
-            float y = (x + 1) * bean_thickness;
+            float y = (x + 1) * beam_thickness;
             float z = width - y;
             float result = z / x;
             while (result > 300) {
                 x = x + 1;
-                y = (x + 1) * bean_thickness;
+                y = (x + 1) * beam_thicknesss;
                 z = width - y;
                 result = z / x;
             }
@@ -129,29 +150,32 @@ class main {
         else
         {
             int x = (int) width / 400;
-            float y = (x + 1) * bean_thickness;
+            float y = (x + 1) * beam_thickness;
             float z = width - y;
             float result = z / x;
             while (result > 400) {
                 x = x + 1;
-                y = (x + 1) * bean_thickness;
+                y = (x + 1) * beam_thicknesss;
                 z = width - y;
                 result = z / x;
             }
             return result;
         }
     }
-    public static float num_of_amud(float width, float bean_thickness)
+    /**
+     * 
+     */
+    public static float num_of_amud(float width, float beam_thicknss)
     {
-        if (bean_thickness <= 7)
+        if (beam_thickness <= 7)
         {
             int x = (int) width / 300;
-            float y = (x + 1) * bean_thickness;
+            float y = (x + 1) * beam_thicknesss;
             float z = width - y;
             float result = z / x;
             while (result > 300) {
                 x = x + 1;
-                y = (x + 1) * bean_thickness;
+                y = (x + 1) * beam_thicknessss;
                 z = width - y;
                 result = z / x;
             }
@@ -160,12 +184,12 @@ class main {
         else
         {
             int x = (int) width / 400;
-            float y = (x + 1) * bean_thickness;
+            float y = (x + 1) * beam_thicknesss;
             float z = width - y;
             float result = z / x;
             while (result > 400) {
                 x = x + 1;
-                y = (x + 1) * bean_thickness;
+                y = (x + 1) * beam_thicknessss;
                 z = width - y;
                 result = z / x;
             }
