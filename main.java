@@ -12,12 +12,17 @@ class main {
         else
             { Regular();}
     }
+    public static void regular()
+    {
+        userInputRegular()
+
+    }
     /**
      * The function takes care of the regular version.
      * It gets from the user the length, width and hight of the space, the thickness of a beam, the incline and exit meter.
      * It prints to the user: amount of space between beams, amount of beams
      */
-    public static void Regular()
+    public static void userInputRegular()
     {
         System.out.println("Regular");  // Output user input
         Scanner myObj = new Scanner(System.in);  // Create a Scanner object
@@ -33,10 +38,17 @@ class main {
         float output = myObj.nextFloat();  // Read user input
         System.out.println("Please enter the hight: (in cm)");
         float hight = myObj.nextFloat();  // Read user input
+
+    }
+    /**
+     * prints the data of the regular version
+     */
+    public static void printRegularData(float lenght, float width, float beam_thickness, float incline, float output,float hight)
+    {
         float space = num_of_space_between_beam(width, beam_thickness);
         System.out.println("amount of space between beams: " + space);
-        float num_of_beans = num_of_beam(width, beam_thickness);
-        System.out.println("amount of beam: " + num_of_beans);
+        float num_of_beams = num_of_beam(width, beam_thickness);
+        System.out.println("amount of beam: " + num_of_beams);
         float length_of_woods = length_of_wood(length, incline, output);
         System.out.println("the lenght of a wood: " + length_of_woods);
         float hight_of_amuds = hight_of_poll(hight, incline, beam_thickness, length);
@@ -45,7 +57,6 @@ class main {
         System.out.println("amount of space between amuds: " + num_of_space_between_amuds);
         float num_of_amuds= num_of_amud(width, beam_thickness);
         System.out.println("amount of amuds: " + num_of_amuds);
-
     }
     /**
      * 
@@ -79,7 +90,15 @@ class main {
             ans1 = myObj.nextLine();
             beams.add(beam1);
         } while(Objects.equals(ans1, "Y"));
+        public List<Beam> needed_beams = new ArrayList<>();
+        needed_beams = shadowingCalculation(beams);
     }
+
+    public static List<beam> shadowingCalculation(List<beam> beams)
+    {
+        
+    }
+
     /**
      * 
      */
