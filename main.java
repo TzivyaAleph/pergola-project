@@ -20,7 +20,6 @@ class main {
     /**
      * The function takes care of the regular version.
      * It gets from the user the length, width and hight of the space, the thickness of a beam, the incline and exit meter.
-     * It prints to the user: amount of space between beams, amount of beams
      */
     public static void userInputRegular()
     {
@@ -31,7 +30,7 @@ class main {
         System.out.println("Please enter width: (in cm)");
         float width = myObj.nextFloat();  // Read user input
         System.out.println("Please enter beam thickness: (in cm)");
-        float beam_thickness = myObj.nextFloat();  // Read user input
+        float beamThickness = myObj.nextFloat();  // Read user input
         System.out.println("Please enter incline: (in cm)");
         float incline = myObj.nextFloat();  // Read user input
         System.out.println("Please enter output of beam: (in cm)");
@@ -41,31 +40,34 @@ class main {
 
     }
     /**
-     * prints the data of the regular version
+     * Prints the data of the regular version:
+     * amount of space between beams, amount of beams, length of a wood, hight of a pole, the amount of space between the poles,
+     * amount of poles needed.
      */
-    public static void printRegularData(float lenght, float width, float beam_thickness, float incline, float output,float hight)
+    public static void printRegularData(float lenght, float width, float beamThickness, float incline, float output,float hight)
     {
-        float space = num_of_space_between_beam(width, beam_thickness);
+        float space = numOfSpaceBetweenBeam(width, beamThickness);
         System.out.println("amount of space between beams: " + space);
-        float num_of_beams = num_of_beam(width, beam_thickness);
-        System.out.println("amount of beam: " + num_of_beams);
-        float length_of_woods = length_of_wood(length, incline, output);
-        System.out.println("the lenght of a wood: " + length_of_woods);
-        float hight_of_amuds = hight_of_poll(hight, incline, beam_thickness, length);
-        System.out.println("the hight of a amud: " + hight_of_amuds);
-        float num_of_space_between_amuds = num_of_space_between_poll(width, beam_thickness);
-        System.out.println("amount of space between amuds: " + num_of_space_between_amuds);
-        float num_of_amuds= num_of_amud(width, beam_thickness);
-        System.out.println("amount of amuds: " + num_of_amuds);
+        float numOfBeams = numOfBeam(width, beamThickness);
+        System.out.println("amount of beam: " + numOfBeams);
+        float lengthOfWood = lengthOfWood(length, incline, output);
+        System.out.println("the lenght of a wood: " + lengthOfWood);
+        float hightOfPole = hightOfPole(hight, incline, beamThickness, length);
+        System.out.println("the hight of a amud: " + hightOfPole);
+        float numOfSpaceBetweenPoles = numOfSpaceBetweenPoles(width, beamThickness);
+        System.out.println("amount of space between amuds: " + numOfSpaceBetweenPoles);
+        float numOfPoles= numOfPoles(width, beamThickness);
+        System.out.println("amount of amuds: " + numOfPoles);
     }
     /**
-     * 
+     * The function takes care of the pro version.
+     * It gets from the user the input of the reguler version + all the lengths of a specific beam.
      */
-    public static void Pro()
+    public static void pro()
     {
         System.out.println("Pro");  // Output user input
         Scanner myObj = new Scanner(System.in);  // Create a Scanner object
-        Regular();
+        //Regular();
         String ans1;
         public List<Beam> beams = new ArrayList<>();
         do {
@@ -90,8 +92,8 @@ class main {
             ans1 = myObj.nextLine();
             beams.add(beam1);
         } while(Objects.equals(ans1, "Y"));
-        public List<Beam> needed_beams = new ArrayList<>();
-        needed_beams = shadowingCalculation(beams);
+        public List<Beam> neededBeams = new ArrayList<>();
+        neededBeams = shadowingCalculation(beams);
     }
 
     public static List<beam> shadowingCalculation(List<beam> beams)
@@ -100,14 +102,19 @@ class main {
     }
 
     /**
-     * 
+     * Returns the number of beams that the user will need.
      */
-    public static float num_of_beam(float width, float thickness)
+    public static float numOfBeam(float width, float thickness)
     {
-        int x = (int)width / 75;
-        float y = (x + 1) * thickness;
+        //divides the width by 75 because between each beam it can't go over 75 cm.
+        int x = (int)width / 75; 
+        //the amount of beams (+ 1 for the last one) multiply by the thickness, to know how much room the beams take.
+        float y = (x + 1) * thickness; 
+        //the width minus the room that the beams take.
         float z = width - y;
+        //divides the width that was left by the amount of beams.
         float result = z / x;
+        //while the space between the beams are over 75 cm it adds another beam and calculets again.
         while (result >= 75)
         {
             x = x + 1;
@@ -115,10 +122,11 @@ class main {
             z = width - y;
             result = z / x;
         }
+        //returns the amount of beams needed.
         return x+1;
     }
 
-    public static float num_of_space_between_beam(float width, float thickness)
+    public static float numOfSpaceBetweenBeam(float width, float thickness)
     {
         int x = (int)width / 75;
         float y = (x + 1) * thickness;
@@ -136,31 +144,31 @@ class main {
     /**
      * 
      */
-    public static float length_of_wood(float length, float incline, float output)
+    public static float lengthOfWood(float length, float incline, float output)
     {
         return length+output+(incline/100*length);//????
     }
     /**
      * 
      */
-    public static float hight_of_poll(float hight, float incline, float beam_thicknss, float length)
+    public static float hightOfPole(float hight, float incline, float beamThicknss, float length)
     {
-        return hight-bean_thickness-(incline/100*length);
+        return hight-beamThicknss-(incline/100*length);
     }
     /**
      * 
      */
-    public static float num_of_space_between_poll(float width, float beam_thicknss)
+    public static float numOfSpaceBetweenPoles(float width, float beamThicknss)
     {
-        if (beam_thickness <= 7)
+        if (beamThicknss <= 7)
         {
             int x = (int) width / 300;
-            float y = (x + 1) * beam_thickness;
+            float y = (x + 1) * beamThicknss;
             float z = width - y;
             float result = z / x;
             while (result > 300) {
                 x = x + 1;
-                y = (x + 1) * beam_thicknesss;
+                y = (x + 1) * beamThicknss;
                 z = width - y;
                 result = z / x;
             }
@@ -169,12 +177,12 @@ class main {
         else
         {
             int x = (int) width / 400;
-            float y = (x + 1) * beam_thickness;
+            float y = (x + 1) * beamThicknss;
             float z = width - y;
             float result = z / x;
             while (result > 400) {
                 x = x + 1;
-                y = (x + 1) * beam_thicknesss;
+                y = (x + 1) * beamThicknss;
                 z = width - y;
                 result = z / x;
             }
@@ -184,17 +192,17 @@ class main {
     /**
      * 
      */
-    public static float num_of_amud(float width, float beam_thicknss)
+    public static float numOfPoles(float width, float beamThicknss)
     {
-        if (beam_thickness <= 7)
+        if (beamThicknss <= 7)
         {
             int x = (int) width / 300;
-            float y = (x + 1) * beam_thicknesss;
+            float y = (x + 1) * beamThicknss;
             float z = width - y;
             float result = z / x;
             while (result > 300) {
                 x = x + 1;
-                y = (x + 1) * beam_thicknessss;
+                y = (x + 1) * beamThicknss;
                 z = width - y;
                 result = z / x;
             }
@@ -203,12 +211,12 @@ class main {
         else
         {
             int x = (int) width / 400;
-            float y = (x + 1) * beam_thicknesss;
+            float y = (x + 1) * beamThicknss;
             float z = width - y;
             float result = z / x;
             while (result > 400) {
                 x = x + 1;
-                y = (x + 1) * beam_thicknessss;
+                y = (x + 1) * beamThicknss;
                 z = width - y;
                 result = z / x;
             }

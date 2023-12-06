@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Beam
 {
-    public float beam_thickness;
+    public float beamThicknss;
     public float hight;
     public List<Float> lengths = new ArrayList<>();
 }
